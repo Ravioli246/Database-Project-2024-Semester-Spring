@@ -404,7 +404,7 @@ Syntax: ALTER TABLE {table} ADD CONSTRAINT {constraint_name} {TYPE-OF-CONSTRAINT
 
         ```INSERT INTO employee VALUES (1056, 25, 12000, ‘Archivist’, ‘Bob’)```
 
-       ```INSERT INTO employee VALUES (1134, 43, 18000, ‘Disposal, ‘Bob’)```
+        ```INSERT INTO employee VALUES (1134, 43, 18000, ‘Disposal, ‘Bob’)```
 
         ERROR: Name ‘Bob’ in the second insert violates the unique name constraint.
 
