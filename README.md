@@ -22,10 +22,10 @@ This system manages the operations of a library or archive, including book stora
 
 The picture below is the ERD for our database.
 
-![Entity Relationship Diagram 1](media/image1.png)
+![Entity Relationship Diagram 1](media/erd.png)
 
 This picture is our DSD/ our relational schema
-![Schema Diagram](media/image2.png)
+![Schema Diagram](media/dsd.png)
 
 ### Key Entities
 
