@@ -230,8 +230,9 @@ All 4 files are under the “git-lfs” folder in the repository.
     ```
 
 **Screenshot**:
+![Shelves with the highest number of books in all archives](queries/screenshots/query1.jpg)
 
--   **Caption**: *"Results of the SELECT queries execution."*
+-   **Caption**: *"Shelves with the highest number of books in all archives"*
 
 All regular queries are saved under the “queries” folder in the repository with accompanying screen shots.
 
@@ -241,7 +242,7 @@ All regular queries are saved under the “queries” folder in the repository w
 **3.1 User Query Needs**
 
 -   Wrote four parameterized query requirements
-1.  Search for book assignments by title ("Optional Analyzing Challenge")
+1)  Search for book assignments by title ("Optional Analyzing Challenge")
 
 ```sql
 DEALLOCATE find_reassignments;
@@ -338,9 +339,9 @@ EXECUTE find_employees(50000, 45);
 ```
 
 **Screenshot**:  
-*(Insert screenshot of parameterized query execution)*
+![Shelves with the highest number of books in all archives](paramqueries/screenshots/paramquery1.jpg)
 
--   **Caption**: *"Execution of parameterized queries with user inputs."*
+-   **Caption**: *"Search for book assignments by title"*
 
 All parametrized queries are saved in the “paramqueries” file in the repository with accompanying screenshots of examples that we ran.
 
@@ -381,9 +382,9 @@ We have a table showing each query’s speed before the indexing and after the i
 | 3      | 789                     | 196                     | 4x                 |
 
 **Screenshot**:  
-*(Insert screenshot of index creation and performance comparison)*
+![Shelves with the highest number of books in all archives](indexing/index1.jpg)
 
--   **Caption**: *"Timing comparison of queries before and after indexing."*
+-   **Caption**: *"Indexing the 'genre' attribute in the Book table."*
 
 The indexed SQL screenshots are saved under the “indexing” file in the repository.
 
@@ -420,8 +421,8 @@ Syntax: ALTER TABLE {table} ADD CONSTRAINT {constraint_name} {TYPE-OF-CONSTRAINT
         ERROR: The update to rarity is trying to make it of a type that doesn’t belong in our allowed set.
 
 **Screenshot**:  
-*(Insert screenshot of constraints execution with errors)*
+![Shelves with the highest number of books in all archives](constraints/INSERT (1) TABLE ALTER.jpg)
 
--   **Caption**: *"Testing constraints with invalid data to trigger errors."*
+-   **Caption**: *"Adding the unique constraint to user names."*
 
 All code and screenshots for the constraints can be found in the “constraints” file of our repository.
