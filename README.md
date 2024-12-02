@@ -421,7 +421,7 @@ Syntax: ALTER TABLE {table} ADD CONSTRAINT {constraint_name} {TYPE-OF-CONSTRAINT
         ERROR: The update to rarity is trying to make it of a type that doesn’t belong in our allowed set.
 
 **Screenshot**:  
-![Shelves with the highest number of books in all archives](constraints/INSERT (1) TABLE ALTER.jpg)
+![Shelves with the highest number of books in all archives](constraints/unique_name.jpg)
 
 -   **Caption**: *"Adding the unique constraint to user names."*
 
