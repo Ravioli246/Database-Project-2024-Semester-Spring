@@ -1,0 +1,58 @@
+pg_restore: connecting to database for restore
+pg_restore: dropping FK CONSTRAINT upkeep upkeep_employee_id_fkey
+pg_restore: dropping FK CONSTRAINT upkeep upkeep_book_id_fkey
+pg_restore: dropping FK CONSTRAINT shelf shelf_archive_number_fkey
+pg_restore: dropping FK CONSTRAINT disposal disposal_employee_id_fkey
+pg_restore: dropping FK CONSTRAINT disposal disposal_book_id_fkey
+pg_restore: dropping FK CONSTRAINT archival_assignment archival_assignment_new_archive_room_fkey
+pg_restore: dropping FK CONSTRAINT archival_assignment archival_assignment_employee_id_fkey
+pg_restore: dropping FK CONSTRAINT archival_assignment archival_assignment_book_id_fkey
+pg_restore: dropping INDEX index_books
+pg_restore: dropping INDEX index_archival_assignment
+pg_restore: dropping CONSTRAINT upkeep upkeep_pkey
+pg_restore: dropping CONSTRAINT employee unique_employee_name
+pg_restore: dropping CONSTRAINT shelf shelf_pkey
+pg_restore: dropping CONSTRAINT employee employee_pkey
+pg_restore: dropping CONSTRAINT disposal disposal_pkey
+pg_restore: dropping CONSTRAINT book book_pkey
+pg_restore: dropping CONSTRAINT archive archive_pkey
+pg_restore: dropping CONSTRAINT archival_assignment archival_assignment_pkey
+pg_restore: dropping TABLE upkeep
+pg_restore: dropping TABLE shelf
+pg_restore: dropping TABLE employee
+pg_restore: dropping TABLE disposal
+pg_restore: dropping TABLE book
+pg_restore: dropping TABLE archive
+pg_restore: dropping TABLE archival_assignment
+pg_restore: creating TABLE "public.archival_assignment"
+pg_restore: creating TABLE "public.archive"
+pg_restore: creating TABLE "public.book"
+pg_restore: creating TABLE "public.disposal"
+pg_restore: creating TABLE "public.employee"
+pg_restore: creating TABLE "public.shelf"
+pg_restore: creating TABLE "public.upkeep"
+pg_restore: processing data for table "public.archival_assignment"
+pg_restore: processing data for table "public.archive"
+pg_restore: processing data for table "public.book"
+pg_restore: processing data for table "public.disposal"
+pg_restore: processing data for table "public.employee"
+pg_restore: processing data for table "public.shelf"
+pg_restore: processing data for table "public.upkeep"
+pg_restore: creating CONSTRAINT "public.archival_assignment archival_assignment_pkey"
+pg_restore: creating CONSTRAINT "public.archive archive_pkey"
+pg_restore: creating CONSTRAINT "public.book book_pkey"
+pg_restore: creating CONSTRAINT "public.disposal disposal_pkey"
+pg_restore: creating CONSTRAINT "public.employee employee_pkey"
+pg_restore: creating CONSTRAINT "public.shelf shelf_pkey"
+pg_restore: creating CONSTRAINT "public.employee unique_employee_name"
+pg_restore: creating CONSTRAINT "public.upkeep upkeep_pkey"
+pg_restore: creating INDEX "public.index_archival_assignment"
+pg_restore: creating INDEX "public.index_books"
+pg_restore: creating FK CONSTRAINT "public.archival_assignment archival_assignment_book_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.archival_assignment archival_assignment_employee_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.archival_assignment archival_assignment_new_archive_room_fkey"
+pg_restore: creating FK CONSTRAINT "public.disposal disposal_book_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.disposal disposal_employee_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.shelf shelf_archive_number_fkey"
+pg_restore: creating FK CONSTRAINT "public.upkeep upkeep_book_id_fkey"
+pg_restore: creating FK CONSTRAINT "public.upkeep upkeep_employee_id_fkey"
