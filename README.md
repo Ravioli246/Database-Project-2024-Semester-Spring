@@ -61,13 +61,13 @@ Initially, the disposal and upkeep processes were considered as separate "room" 
 
 The system includes several Python scripts for generating sample data:
 
-- `bookDG1.py`: Generates book data
-- `employeeDG1.py`: Generates employee data
-- `archiveDG1.py`: Generates archive data
-- `assignmentDG1.py`: Generates archival assignment data
-- `disposalDG1.py`: Generates book disposal data
-- `upkeepDG1.py`: Generates book upkeep data
-- `shelDG1.py`: Generates shelf data
+- `book.py`: Generates book data
+- `employee.py`: Generates employee data
+- `archive.py`: Generates archive data
+- `assignment.py`: Generates archival assignment data
+- `disposal.py`: Generates book disposal data
+- `upkeep.py`: Generates book upkeep data
+- `shelf.py`: Generates shelf data
 
 These scripts can be used to populate the system with sample data for testing, demonstrations, and training purposes.
 
