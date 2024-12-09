@@ -2,6 +2,9 @@
 
 # Library Management System
 
+## Jeremy Jacob - 345570451
+## Daniel Frohlich - 345528780
+
 ## Overview
 
 This system manages the operations of a library or archive, including book storage, book disposal, and book upkeep. The system consists of several modules that handle different aspects of the library's management:
