@@ -76,6 +76,7 @@ We have all the scripts, csv data files, and screenshots of loading them into PG
 Belows is one example screenshot.
 
 
+![Populating PGAdmin with books from our csv](populate-scripts/datagen/screenshots/book_population.jpg)
 
 ## Future Enhancements
 
