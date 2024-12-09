@@ -70,6 +70,12 @@ The system includes several Python scripts for generating sample data:
 - `shelf.py`: Generates shelf data
 
 These scripts can be used to populate the system with sample data for testing, demonstrations, and training purposes.
+We took the above python scripts and populated all the data onto csv files for each entity.
+Following this, we then imported the data into PGAdmin and made a table for each entity using their respective csv files.
+We have all the scripts, csv data files, and screenshots of loading them into PGAdmin under the "populate-scripts/datagen" folder in the repository.
+Belows is one example screenshot.
+
+
 
 ## Future Enhancements
 
