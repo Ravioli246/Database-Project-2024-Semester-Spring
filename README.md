@@ -457,7 +457,7 @@ Write SELECT or UPDATE queries involving multiple tables to address complex data
 **Query 1** )
 
 List all the upkeeps including employee_name and the book_title, to give an extended look at the information of the upkeeps in an extended table through two joins
-
+```sql
 SELECT DISTINCT e.name AS employee_name,
 
 b.book_id,
@@ -477,11 +477,11 @@ JOIN public.upkeep u ON e.employee_id = u.employee_id
 JOIN public.book b ON u.book_id = b.book_id
 
 ORDER BY b.book_id ASC, e.name, u.date DESC;
-
+```
 **Query 2 )**
 
 Show disposed books but also additional information like employee_name, for example to create an extended chart
-
+```sql
 SELECT b.title AS book_title,
 
 d.disposal_method,
@@ -499,11 +499,12 @@ JOIN public.book b ON d.book_id = b.book_id
 JOIN public.employee e ON d.employee_id = e.employee_id
 
 ORDER BY d.date DESC;
-
+```
 **Query 3 )**
 
 SQL join that reassigns all of Michaela's August 2024 upkeep assignments to Traci Smith
 
+```sql
 SELECT u.upkeep_id,
 
 u.book_id,
@@ -525,8 +526,8 @@ JOIN public.employee e ON u.employee_id = e.employee_id
 JOIN public.book b ON u.book_id = b.book_id
 
 WHERE e.name = 'Michaela Moore'
-
 AND u.date BETWEEN '2024-08-01' AND '2024-08-31';
+```
 
 - For query 3, we have before and after screenshots of both Micaela and Traci to show the reassignments in the data. All code and picture references at the end of section 1.
 
@@ -551,7 +552,7 @@ All joined queries code and their accompanying screen shots can be found in the 
 **View 1.** A view of all the books that start with the letter D
 
 The CREATE query:
-
+```sql
 CREATE VIEW books_starting_with_D AS
 
 SELECT book_id, title
@@ -561,39 +562,44 @@ FROM book
 WHERE title LIKE 'D%'
 
 WITH CHECK OPTION;
+```
 
 The SELECT query: Select all the books that start with D and have the word engineered in them
-
+```sql
 SELECT \*
 
 FROM books_starting_with_d
 
 WHERE title ILIKE '%engineered%';
+```
 
 The INSERT query: Attempting to insert a book starting with F even though we used a check condition, so it didn’t work.
-
+```sql
 INSERT INTO books_starting_with_D (book_id, title, author,rarity,genre)
 
 VALUES (1029463947, 'Fantasy Adventure', 'John Doe', 'Rare', 'Fantasy');
+```
 
 The UPDATE query: Update all the books by people with initials M and J to rarity of super rare
-
+```sql
 UPDATE books_starting_with_d
 
 SET rarity = 'Rare'
 
 WHERE author ILIKE 'M% J%';
+```
 
 The DELETE query: Delete from all the books starting with D those who's genre is biography which gave a foreign key constraint error
-
+```sql
 DELETE FROM books_starting_with_d
 
 WHERE genre = 'Biography';
+```
 
 **View 2.** Make a view of only archival employees
 
 The CREATE query:
-
+```sql
 CREATE VIEW Archival_Employee AS
 
 SELECT \*
@@ -603,34 +609,39 @@ FROM employee
 WHERE role = 'Archivist'
 
 WITH CHECK OPTION;
+```
 
 The SELECT query: Select all the archival employees who make at least 85,000 dollars
-
+```sql
 SELECT name, salary
 
 FROM archival_employees
 
 WHERE salary > 85000
+```
 
 The INSERT query: Inserting a Disposal worker into the Archivist view. It doesn’t work because it goes against the check, but it did put it into the table of employee.
-
+```sql
 INSERT INTO archival_employees (employee_id, age, salary, role, name)
 
 VALUES (2020, 30, 40000, 'Disposal Worker', 'John Doe');
+```
 
 The UPDATE query: Updating one of the archival employees in the view to a different job. This will update the view and then because of the check condition will remove them from the view and update the underlying table to give them the new role.
-
+```sql
 UPDATE archival_employees
 
 SET role = 'Restorationist'
 
 WHERE employee_id = 1001;
+```
 
 The DELETE query: Deleting all archivists who make more then 85,000 dollars. We will run into a foreign key constraint because three entities (upkeep, disposal, and archival assignment) depend on employee
-
+```sql
 DELETE FROM archival_employees
 
 WHERE salary > 85000;
+```
 
 **View 3.** A view of all authors who wrote a fantasy book with the columns author name, genre, and book id.
 
