@@ -764,9 +764,9 @@ DELETE FROM disposal
 
 WHERE ctid IN (SELECT ctid FROM rows_to_delete);
 ```
-
-![Shelves with the highest number of books in all archives](constraints/unique_name.jpg)
-**Caption**: Example of view creation and update operation with error simulation.
+views/View screenshots/create3.png
+![Shelves with the highest number of books in all archives](views/View-screenshots/create3.jpg)
+**Caption**: The code to create the pyromaniac view.
 
 All the code and screenshots for all the views can be found in the “View” file in the main repository.
 
@@ -992,11 +992,13 @@ Updated SQL query that returns extended upkeep details for specific emplyee in s
 SELECT \* FROM get_upkeep_details_by_employee('Jerry Lyons', '2024-05-01', '2024-05-31');
 ```
 
-![Shelves with the highest number of books in all archives](functions/screenshots/Function-3-Usage.jpg)
+![Shelves with the highest number of books in all archives](functions/screenshots/function3-usage.jpg)
 **Caption**: Reassigns upkeep assignments from Employee A to Employee B in a certain time frame.
 
-![See assigments](functions/screenshots/Function 4 Usage (Follows Function 3) (Jerry))
-![See assigments](functions/screenshots/Function 4 Usage (Follows Function 3) (Stacey))
-**Caption**: Now we see all the assignemnts that Employee B has after he took them from Employee A.
+![Shelves with the highest number of books in all archives](functions/screenshots/function4-usage-stacey.jpg)
+**Caption**: We see Stacey who was Employee A now has no assigments in the specified time frame
+
+![Shelves with the highest number of books in all archives](functions/screenshots/function4-usage-jerry.jpg)
+**Caption**: We see Jerry, Employee B, has many assignments because he took all the assignemtns from Stacey
 
 All the code and screenshots for functions can be found in the “functions” folder of the main repository.
