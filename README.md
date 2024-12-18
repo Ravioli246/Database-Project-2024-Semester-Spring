@@ -531,9 +531,8 @@ AND u.date BETWEEN '2024-08-01' AND '2024-08-31';
 
 - For query 3, we have before and after screenshots of both Micaela and Traci to show the reassignments in the data. All code and picture references at the end of section 1.
 
-**Placeholder for Screenshot**  
-_Screenshot of query execution output and timing results._  
-**Caption**: Example of a multi-table query with execution time logged.
+![Disposed books and addional info](joined-queries/screenshots/Join2.jpg)
+**Caption**: Showing information from disposed books joined with info from other charts like employee name
 
 All joined queries code and their accompanying screen shots can be found in the “joined-queries” folder in the main repository. All times are logged on the screenshots automatically of each query.
 
@@ -765,8 +764,8 @@ DELETE FROM disposal
 
 WHERE ctid IN (SELECT ctid FROM rows_to_delete);
 ```
-**Placeholder for Screenshot**  
-_Screenshot showing view creation and manipulation results._  
+
+![Shelves with the highest number of books in all archives](constraints/unique_name.jpg)
 **Caption**: Example of view creation and update operation with error simulation.
 
 All the code and screenshots for all the views can be found in the “View” file in the main repository.
@@ -781,8 +780,10 @@ All the code and screenshots for all the views can be found in the “View” fi
 - Generate two different types of visualizations (e.g., pie chart and bar graph).
 - Embed the plots in the README with explanatory notes.
 
-**Caption**: Pie chart representing the query results for \[SELECT name, salary FROM archival_employees WHERE salary > 60000\].
+![Shelves with the highest number of books in all archives](constraints/unique_name.jpg)
+**Caption**: Pie chart representing the query results for \[SELECT name, salary FROM archival_employees WHERE salary > 60000\], after sifitng out those who made less then 60,000 dollars.
 
+![Shelves with the highest number of books in all archives](constraints/unique_name.jpg)
 **Caption**: Bar graph showing all the employees who burned more then 360 books. \[SELECT \* FROM public.pyromaniacs\].
 
 All the screenshots appear in the “visualizations” folder of the main repository, along with screenshots of the accompanying data in a table.
@@ -991,9 +992,11 @@ Updated SQL query that returns extended upkeep details for specific emplyee in s
 SELECT \* FROM get_upkeep_details_by_employee('Jerry Lyons', '2024-05-01', '2024-05-31');
 ```
 
+![Shelves with the highest number of books in all archives](functions/screenshots/Function-3-Usage.jpg)
+**Caption**: Reassigns upkeep assignments from Employee A to Employee B in a certain time frame.
 
-**Placeholder for Screenshot**  
-_Screenshot of function execution and timing results._  
-**Caption**: Example of reusable function implementation and its performance improvement.
+![See assigments](functions/screenshots/Function 4 Usage (Follows Function 3) (Jerry))
+![See assigments](functions/screenshots/Function 4 Usage (Follows Function 3) (Stacey))
+**Caption**: Now we see all the assignemnts that Employee B has after he took them from Employee A.
 
 All the code and screenshots for functions can be found in the “functions” folder of the main repository.
