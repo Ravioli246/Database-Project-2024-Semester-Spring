@@ -719,7 +719,7 @@ FROM pyromaniacs
 WHERE books_burned < 200
 ```
 
-The INSERT query: Making a new disposal entry where one of our pyromaniacs burns another book. We shall see if it updates the view After this executed we saw that it added another tally to employee number 1024 for number of books burned in our view.
+The INSERT query: Making a new disposal entry where one of our pyromaniacs burns another book. We shall see if it updates the view. After this executed we saw that it added another tally to employee number 1024 for number of books burned in our view.
 ```sql
 INSERT INTO disposal
 
@@ -764,9 +764,12 @@ DELETE FROM disposal
 
 WHERE ctid IN (SELECT ctid FROM rows_to_delete);
 ```
-views/View screenshots/create3.png
-![Shelves with the highest number of books in all archives](views/View-screenshots/create3.jpg)
+
+![Shelves with the highest number of books in all archives](views/screenshots/create3.png)
 **Caption**: The code to create the pyromaniac view.
+
+![Shelves with the highest number of books in all archives](views/screenshots/example-for-create3.png)
+**Caption**: What the pyromaniac view looks like.
 
 All the code and screenshots for all the views can be found in the “View” file in the main repository.
 
@@ -780,10 +783,10 @@ All the code and screenshots for all the views can be found in the “View” fi
 - Generate two different types of visualizations (e.g., pie chart and bar graph).
 - Embed the plots in the README with explanatory notes.
 
-![Shelves with the highest number of books in all archives](constraints/unique_name.jpg)
+![Shelves with the highest number of books in all archives](visualizations/screenshots/pie-chart.png)
 **Caption**: Pie chart representing the query results for \[SELECT name, salary FROM archival_employees WHERE salary > 60000\], after sifitng out those who made less then 60,000 dollars.
 
-![Shelves with the highest number of books in all archives](constraints/unique_name.jpg)
+![Shelves with the highest number of books in all archives](visualizations/screenshots/bar-graph.png)
 **Caption**: Bar graph showing all the employees who burned more then 360 books. \[SELECT \* FROM public.pyromaniacs\].
 
 All the screenshots appear in the “visualizations” folder of the main repository, along with screenshots of the accompanying data in a table.
