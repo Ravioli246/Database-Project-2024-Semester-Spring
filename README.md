@@ -436,3 +436,531 @@ Syntax: ALTER TABLE {table} ADD CONSTRAINT {constraint_name} {TYPE-OF-CONSTRAINT
 -   **Caption**: *"Adding the unique constraint to user names."*
 
 All code and screenshots for the constraints can be found in the “constraints” file of our repository.
+
+
+**README: Stage 3**
+
+**Overview**
+
+In Stage 3 of the database project, we focus on enhancing the database's functionality by introducing advanced queries, views, visualizations, and reusable functions. These additions aim to optimize the database's usability and efficiency while ensuring comprehensive documentation and error handling.
+
+**Tasks and Implementation**
+
+**1\. Joined queries**
+
+**Objective**: Extend the database with three advanced queries utilizing multi-table joins.
+
+**What we did:**
+
+Write SELECT or UPDATE queries involving multiple tables to address complex data retrieval needs.
+
+**Query 1** )
+
+List all the upkeeps including employee_name and the book_title, to give an extended look at the information of the upkeeps in an extended table through two joins
+
+SELECT DISTINCT e.name AS employee_name,
+
+b.book_id,
+
+b.title AS book_title,
+
+u.reason_for_upkeep,
+
+u.tools_used,
+
+u.date
+
+FROM public.employee e
+
+JOIN public.upkeep u ON e.employee_id = u.employee_id
+
+JOIN public.book b ON u.book_id = b.book_id
+
+ORDER BY b.book_id ASC, e.name, u.date DESC;
+
+**Query 2 )**
+
+Show disposed books but also additional information like employee_name, for example to create an extended chart
+
+SELECT b.title AS book_title,
+
+d.disposal_method,
+
+d.material_of_book,
+
+d.date AS disposal_date,
+
+e.name AS employee_name
+
+FROM public.disposal d
+
+JOIN public.book b ON d.book_id = b.book_id
+
+JOIN public.employee e ON d.employee_id = e.employee_id
+
+ORDER BY d.date DESC;
+
+**Query 3 )**
+
+SQL join that reassigns all of Michaela's August 2024 upkeep assignments to Traci Smith
+
+SELECT u.upkeep_id,
+
+u.book_id,
+
+b.title AS book_title,
+
+u.employee_id,
+
+e.name AS employee_name,
+
+u.reason_for_upkeep,
+
+u.date
+
+FROM public.upkeep u
+
+JOIN public.employee e ON u.employee_id = e.employee_id
+
+JOIN public.book b ON u.book_id = b.book_id
+
+WHERE e.name = 'Michaela Moore'
+
+AND u.date BETWEEN '2024-08-01' AND '2024-08-31';
+
+- For query 3, we have before and after screenshots of both Micaela and Traci to show the reassignments in the data. All code and picture references at the end of section 1.
+
+**Placeholder for Screenshot**  
+_Screenshot of query execution output and timing results._  
+**Caption**: Example of a multi-table query with execution time logged.
+
+All joined queries code and their accompanying screen shots can be found in the “joined-queries” folder in the main repository. All times are logged on the screenshots automatically of each query.
+
+**2\. Views**
+
+**Objective**: Create virtual tables (views) to address specific user requirements and ensure data integrity with manipulable records.
+
+**Tasks**:
+
+- Create four views tailored to the needs of different user sub-groups.
+- For each view:
+  - Implement a SELECT query.
+  - Include INSERT, UPDATE, or DELETE operations.
+  - Simulate both valid and invalid data manipulations to test constraints.
+
+**View 1.** A view of all the books that start with the letter D
+
+The CREATE query:
+
+CREATE VIEW books_starting_with_D AS
+
+SELECT book_id, title
+
+FROM book
+
+WHERE title LIKE 'D%'
+
+WITH CHECK OPTION;
+
+The SELECT query: Select all the books that start with D and have the word engineered in them
+
+SELECT \*
+
+FROM books_starting_with_d
+
+WHERE title ILIKE '%engineered%';
+
+The INSERT query: Attempting to insert a book starting with F even though we used a check condition, so it didn’t work.
+
+INSERT INTO books_starting_with_D (book_id, title, author,rarity,genre)
+
+VALUES (1029463947, 'Fantasy Adventure', 'John Doe', 'Rare', 'Fantasy');
+
+The UPDATE query: Update all the books by people with initials M and J to rarity of super rare
+
+UPDATE books_starting_with_d
+
+SET rarity = 'Rare'
+
+WHERE author ILIKE 'M% J%';
+
+The DELETE query: Delete from all the books starting with D those who's genre is biography which gave a foreign key constraint error
+
+DELETE FROM books_starting_with_d
+
+WHERE genre = 'Biography';
+
+**View 2.** Make a view of only archival employees
+
+The CREATE query:
+
+CREATE VIEW Archival_Employee AS
+
+SELECT \*
+
+FROM employee
+
+WHERE role = 'Archivist'
+
+WITH CHECK OPTION;
+
+The SELECT query: Select all the archival employees who make at least 85,000 dollars
+
+SELECT name, salary
+
+FROM archival_employees
+
+WHERE salary > 85000
+
+The INSERT query: Inserting a Disposal worker into the Archivist view. It doesn’t work because it goes against the check, but it did put it into the table of employee.
+
+INSERT INTO archival_employees (employee_id, age, salary, role, name)
+
+VALUES (2020, 30, 40000, 'Disposal Worker', 'John Doe');
+
+The UPDATE query: Updating one of the archival employees in the view to a different job. This will update the view and then because of the check condition will remove them from the view and update the underlying table to give them the new role.
+
+UPDATE archival_employees
+
+SET role = 'Restorationist'
+
+WHERE employee_id = 1001;
+
+The DELETE query: Deleting all archivists who make more then 85,000 dollars. We will run into a foreign key constraint because three entities (upkeep, disposal, and archival assignment) depend on employee
+
+DELETE FROM archival_employees
+
+WHERE salary > 85000;
+
+**View 3.** A view of all authors who wrote a fantasy book with the columns author name, genre, and book id.
+
+CREATE VIEW fantasy_authors AS
+
+SELECT author, genre, book_id
+
+FROM book
+
+WHERE genre = 'Fantasy'
+
+WITH CHECK OPTION
+
+The SELECT query: Select all the fantasy authors whose first name begins with an 'M 'and last name begins with a 'J'.
+
+SELECT \*
+
+FROM fantasy_authors
+
+WHERE author ILIKE 'M% J%';
+
+The INSERT query: Insert a new fantasy book into the book table. It will reflect in the fantasy_authors view
+
+INSERT INTO book (book_id, title, author, rarity, genre)
+
+VALUES (67893, 'The book of things 2', 'Some dude again', 'Common', 'Fantasy');
+
+The UPDATE query: Updating the book we just put in to another genre to see what happens. The check option prevented the update
+
+UPDATE fantasy_authors
+
+SET genre = 'Science'
+
+WHERE book_id = 67893
+
+The DELETE query: Now deleting from book all books with the name of the fantasy book we just inserted into the view. It doesn’t have any dependencies so it will be removed from the table book and also the view fantasy_authors
+
+DELETE FROM book
+
+WHERE author = 'Some dude again'
+
+**View 4.** A list of all the employees by name with the amount of books, who have burned more then 360 books for disposal.
+
+The CREATE query:
+
+CREATE VIEW Pyromaniacs AS
+
+SELECT e.name, COUNT(\*) AS books_burned
+
+FROM disposal d
+
+JOIN employee e
+
+ON d.employee_id = e.employee_id
+
+WHERE d.method = 'Incineration'
+
+GROUP BY e.name
+
+HAVING COUNT(\*) > 360;
+
+The SELECT query: Select from the pyromaniacs all those who burned less then 200 books. This will give an empty list because we only took those who burned at least 360 books to make our view
+
+SELECT \*
+
+FROM pyromaniacs
+
+WHERE books_burned < 200
+
+The INSERT query: Making a new disposal entry where one of our pyromaniacs burns another book. We shall see if it updates the view After this executed we saw that it added another tally to employee number 1024 for number of books burned in our view.
+
+INSERT INTO disposal
+
+VALUES (17, 67890, 1024, 'Incineration', 'Paper', '2024-02-02')
+
+The UPDATE query: Updating our entry of the insert to a different method in the disposal table where it will remove the tally from the employee. After running the code we see it removed a tally from the employee who did this disposal in pyromaniac
+
+UPDATE disposal
+
+SET method = 'Donation'
+
+WHERE disposal_id = 17
+
+The DELETE query: We have employee 'Zachary Frost' with 368 burnings. We will delete 20 of them and that should remove him from the pyromaniacs view. After running the code we see he was removed form the view because he now doesn’t meet the criteria of burning at least 360 books
+
+WITH rows_to_delete AS (
+
+&nbsp;   SELECT ctid
+
+&nbsp;   FROM disposal
+
+&nbsp;   WHERE employee_id = (
+
+&nbsp;       SELECT employee_id
+
+&nbsp;       FROM employee
+
+&nbsp;       WHERE name = 'Zachary Frost'
+
+&nbsp;   )
+
+&nbsp;   AND method = 'Incineration'
+
+&nbsp;   ORDER BY ctid
+
+&nbsp;   LIMIT 20
+
+)
+
+DELETE FROM disposal
+
+WHERE ctid IN (SELECT ctid FROM rows_to_delete);
+
+**Placeholder for Screenshot**  
+_Screenshot showing view creation and manipulation results._  
+**Caption**: Example of view creation and update operation with error simulation.
+
+All the code and screenshots for all the views can be found in the “View” file in the main repository.
+
+**3\. Visualizations**
+
+**Objective**: Represent query results as visual plots to enhance interpretability.
+
+**Tasks**:
+
+- Prepare queries on the created views using pgAdmin.
+- Generate two different types of visualizations (e.g., pie chart and bar graph).
+- Embed the plots in the README with explanatory notes.
+
+**Caption**: Pie chart representing the query results for \[SELECT name, salary FROM archival_employees WHERE salary > 60000\].
+
+**Caption**: Bar graph showing all the employees who burned more then 360 books. \[SELECT \* FROM public.pyromaniacs\].
+
+All the screenshots appear in the “visualizations” folder of the main repository, along with screenshots of the accompanying data in a table.
+
+**4\. Functions**
+
+**Objective**: Optimize query writing by implementing reusable functions.
+
+**Tasks**:
+
+- Write four functions to simplify repetitive or complex query sections into the file Functions.sql.
+- Replace original SQL with function-based equivalents in Queries.sql.
+
+**Functions:**
+
+Function 1: Get employee_id given a name
+
+CREATE OR REPLACE FUNCTION get_employee_id_by_name(emp_name VARCHAR)
+
+RETURNS INTEGER AS $$
+
+DECLARE
+
+emp_id INTEGER;
+
+BEGIN
+
+SELECT employee_id INTO emp_id
+
+FROM public.employee
+
+WHERE name = emp_name;
+
+RETURN emp_id;
+
+END;
+
+$$ LANGUAGE plpgsql;
+
+Updated SQL query that can now get an employee_id from a name and search through disposals of that employee_id, streamlining disposal employee search
+
+SELECT b.title AS book_title,
+
+d.disposal_method,
+
+d.material_of_book,
+
+d.date AS disposal_date,
+
+e.name AS employee_name
+
+FROM public.disposal d
+
+JOIN public.book b ON d.book_id = b.book_id
+
+JOIN public.employee e ON d.employee_id = e.employee_id
+
+WHERE e.employee_id = get_employee_id_by_name('Zachary Frost')
+
+ORDER BY d.date DESC;
+
+Function 2: Get books by title and date
+
+CREATE OR REPLACE FUNCTION get_books_by_title_and_date(book_title VARCHAR, start_date DATE, end_date DATE)
+
+RETURNS TABLE(book_id BIGINT) AS $$
+
+BEGIN
+
+RETURN QUERY
+
+SELECT b.book_id
+
+FROM public.book b
+
+JOIN public.upkeep u ON b.book_id = u.book_id
+
+WHERE b.title = book_title
+
+AND u.date BETWEEN start_date AND end_date;
+
+END;
+
+$$ LANGUAGE plpgsql;
+
+Updated SQL query that now takes a book TITLE, not just id, and given dates, and can return all the upkeeps from that book within a given timeframe.
+
+SELECT u.upkeep_id,
+
+b.book_id,
+
+b.title AS book_title,
+
+e.name AS employee_name,
+
+u.reason_for_upkeep,
+
+u.tools_used,
+
+u.date AS upkeep_date
+
+FROM public.upkeep u
+
+JOIN public.book b ON u.book_id = b.book_id
+
+JOIN public.employee e ON u.employee_id = e.employee_id
+
+WHERE b.book_id IN (
+
+SELECT book_id
+
+FROM get_books_by_title_and_date('Organic 3Rdgeneration Alliance', '2024-07-01', '2024-10-31')
+
+)
+
+ORDER BY u.date DESC, e.name;
+
+Function 3: Reassign upkeep assignments from one employee to another
+
+CREATE OR REPLACE FUNCTION reassign_upkeep_to_employee(old_emp_name VARCHAR, new_emp_name VARCHAR, start_date DATE, end_date DATE)
+
+RETURNS VOID AS $$
+
+DECLARE
+
+old_emp_id INTEGER;
+
+new_emp_id INTEGER;
+
+BEGIN
+
+\-- Get employee IDs
+
+old_emp_id := get_employee_id_by_name(old_emp_name);
+
+new_emp_id := get_employee_id_by_name(new_emp_name);
+
+\-- Perform update
+
+UPDATE public.upkeep
+
+SET employee_id = new_emp_id
+
+WHERE employee_id = old_emp_id
+
+AND date BETWEEN start_date AND end_date;
+
+END;
+
+$$ LANGUAGE plpgsql;
+
+Updated SQL query that reassigns different upkeep assignments within a given timeframe from one employee to another
+
+SELECT reassign_upkeep_to_employee('Stacey Mcconnell', 'Jerry Lyons', '2024-05-01', '2024-05-31');
+
+Function 4: Get upkeep details by employee name to see all upkeep info
+
+CREATE OR REPLACE FUNCTION get_upkeep_details_by_employee(emp_name VARCHAR, start_date DATE, end_date DATE)
+
+RETURNS TABLE(
+
+upkeep_id INTEGER,
+
+book_id BIGINT,
+
+book_title VARCHAR,
+
+reason_for_upkeep VARCHAR,
+
+date DATE
+
+) AS $$
+
+BEGIN
+
+RETURN QUERY
+
+SELECT u.upkeep_id, u.book_id, b.title, u.reason_for_upkeep, u.date
+
+FROM public.upkeep u
+
+JOIN public.book b ON u.book_id = b.book_id
+
+JOIN public.employee e ON u.employee_id = e.employee_id
+
+WHERE e.name = emp_name
+
+AND u.date BETWEEN start_date AND end_date;
+
+END;
+
+$$ LANGUAGE plpgsql;
+
+Updated SQL query that returns extended upkeep details for specific emplyee in specific timeframe
+
+SELECT \* FROM get_upkeep_details_by_employee('Jerry Lyons', '2024-05-01', '2024-05-31');
+
+**Placeholder for Screenshot**  
+_Screenshot of function execution and timing results._  
+**Caption**: Example of reusable function implementation and its performance improvement.
+
+All the code and screenshots for functions can be found in the “functions” folder of the main repository.
