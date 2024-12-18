@@ -580,7 +580,7 @@ INSERT INTO books_starting_with_D (book_id, title, author,rarity,genre)
 VALUES (1029463947, 'Fantasy Adventure', 'John Doe', 'Rare', 'Fantasy');
 ```
 
-The UPDATE query: Update all the books by people with initials M and J to rarity of super rare
+The UPDATE query: Update all the books by people with initials M and J to rarity of rare
 ```sql
 UPDATE books_starting_with_d
 
@@ -645,6 +645,8 @@ WHERE salary > 85000;
 
 **View 3.** A view of all authors who wrote a fantasy book with the columns author name, genre, and book id.
 
+The CREATE query:
+```sql
 CREATE VIEW fantasy_authors AS
 
 SELECT author, genre, book_id
@@ -653,40 +655,45 @@ FROM book
 
 WHERE genre = 'Fantasy'
 
-WITH CHECK OPTION
+WITH CHECK OPTION;
+```
 
 The SELECT query: Select all the fantasy authors whose first name begins with an 'M 'and last name begins with a 'J'.
-
+```sql
 SELECT \*
 
 FROM fantasy_authors
 
 WHERE author ILIKE 'M% J%';
+```
 
 The INSERT query: Insert a new fantasy book into the book table. It will reflect in the fantasy_authors view
-
+```sql
 INSERT INTO book (book_id, title, author, rarity, genre)
 
 VALUES (67893, 'The book of things 2', 'Some dude again', 'Common', 'Fantasy');
+```
 
 The UPDATE query: Updating the book we just put in to another genre to see what happens. The check option prevented the update
-
+```sql
 UPDATE fantasy_authors
 
 SET genre = 'Science'
 
 WHERE book_id = 67893
+```
 
 The DELETE query: Now deleting from book all books with the name of the fantasy book we just inserted into the view. It doesn’t have any dependencies so it will be removed from the table book and also the view fantasy_authors
-
+```sql
 DELETE FROM book
 
 WHERE author = 'Some dude again'
+```
 
 **View 4.** A list of all the employees by name with the amount of books, who have burned more then 360 books for disposal.
 
 The CREATE query:
-
+```sql
 CREATE VIEW Pyromaniacs AS
 
 SELECT e.name, COUNT(\*) AS books_burned
@@ -702,31 +709,34 @@ WHERE d.method = 'Incineration'
 GROUP BY e.name
 
 HAVING COUNT(\*) > 360;
+```
 
 The SELECT query: Select from the pyromaniacs all those who burned less then 200 books. This will give an empty list because we only took those who burned at least 360 books to make our view
-
+```sql
 SELECT \*
 
 FROM pyromaniacs
 
 WHERE books_burned < 200
+```
 
 The INSERT query: Making a new disposal entry where one of our pyromaniacs burns another book. We shall see if it updates the view After this executed we saw that it added another tally to employee number 1024 for number of books burned in our view.
-
+```sql
 INSERT INTO disposal
 
 VALUES (17, 67890, 1024, 'Incineration', 'Paper', '2024-02-02')
+```
 
 The UPDATE query: Updating our entry of the insert to a different method in the disposal table where it will remove the tally from the employee. After running the code we see it removed a tally from the employee who did this disposal in pyromaniac
-
+```sql
 UPDATE disposal
 
 SET method = 'Donation'
 
 WHERE disposal_id = 17
-
+```
 The DELETE query: We have employee 'Zachary Frost' with 368 burnings. We will delete 20 of them and that should remove him from the pyromaniacs view. After running the code we see he was removed form the view because he now doesn’t meet the criteria of burning at least 360 books
-
+```sql
 WITH rows_to_delete AS (
 
 &nbsp;   SELECT ctid
@@ -754,7 +764,7 @@ WITH rows_to_delete AS (
 DELETE FROM disposal
 
 WHERE ctid IN (SELECT ctid FROM rows_to_delete);
-
+```
 **Placeholder for Screenshot**  
 _Screenshot showing view creation and manipulation results._  
 **Caption**: Example of view creation and update operation with error simulation.
