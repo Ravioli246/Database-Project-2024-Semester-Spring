@@ -995,4 +995,4 @@ SELECT \* FROM get_upkeep_details_by_employee('Jerry Lyons', '2024-05-01', '2024
 ![Shelves with the highest number of books in all archives](functions/screenshots/function4-usage-jerry.jpg)
 **Caption**: We see Jerry, Employee B, has many assignments because he took all the assignemtns from Stacey
 
-All the code and screenshots for functions can be found in the “functions” folder of the main repository.
+All the code and screenshots for functions can be found in the “Functions” folder of the main repository.
