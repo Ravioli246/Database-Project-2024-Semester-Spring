@@ -505,34 +505,22 @@ ORDER BY d.date DESC;
 SQL join that reassigns all of Michaela's August 2024 upkeep assignments to Traci Smith
 
 ```sql
-SELECT u.upkeep_id,
-
-u.book_id,
-
-b.title AS book_title,
-
-u.employee_id,
-
-e.name AS employee_name,
-
-u.reason_for_upkeep,
-
-u.date
-
-FROM public.upkeep u
-
-JOIN public.employee e ON u.employee_id = e.employee_id
-
-JOIN public.book b ON u.book_id = b.book_id
-
-WHERE e.name = 'Michaela Moore'
-AND u.date BETWEEN '2024-08-01' AND '2024-08-31';
+UPDATE public.upkeep u
+SET employee_id = e2. employee_id
+FROM public. employee el
+JOIN public. employee e2 ON e2. name = 'Traci Smith'
+WHERE u. employee_id = el. employee_id
+  AND el. name = 'Michaela Moore'
+  AND u.date BETWEEN '2024-08-01' AND '2024-08-31';
 ```
 
 - For query 3, we have before and after screenshots of both Micaela and Traci to show the reassignments in the data. All code and picture references at the end of section 1.
 
-![Disposed books and addional info](joined-queries/screenshots/Join2.jpg)
-**Caption**: Showing information from disposed books joined with info from other charts like employee name
+![Books of time period with addional info before update](joined-queries/screenshots/Join3 Before Update -- Michaela.jpg)
+**Caption**: Shows how many books are assigned to Michaela before the update
+
+![Books of time period with addional info after update](joined-queries/screenshots/Join3 After Update -- Michaela.jpg)
+**Caption**: Shows how many books are assigned to Michaela after the update
 
 All joined queries code and their accompanying screen shots can be found in the “joined-queries” folder in the main repository. All times are logged on the screenshots automatically of each query.
 
