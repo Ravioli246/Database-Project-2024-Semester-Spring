@@ -726,25 +726,25 @@ The DELETE query: We have employee 'Zachary Frost' with 368 burnings. We will de
 ```sql
 WITH rows_to_delete AS (
 
-&nbsp;   SELECT ctid
+   SELECT ctid
 
-&nbsp;   FROM disposal
+   FROM disposal
 
-&nbsp;   WHERE employee_id = (
+   WHERE employee_id = (
 
-&nbsp;       SELECT employee_id
+       SELECT employee_id
 
-&nbsp;       FROM employee
+       FROM employee
 
-&nbsp;       WHERE name = 'Zachary Frost'
+       WHERE name = 'Zachary Frost'
 
-&nbsp;   )
+   )
 
-&nbsp;   AND method = 'Incineration'
+  AND method = 'Incineration'
 
-&nbsp;   ORDER BY ctid
+  ORDER BY ctid
 
-&nbsp;   LIMIT 20
+  LIMIT 20
 
 )
 
