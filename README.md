@@ -516,10 +516,10 @@ WHERE u. employee_id = el. employee_id
 
 - For query 3, we have before and after screenshots of both Micaela and Traci to show the reassignments in the data. All code and picture references at the end of section 1.
 
-![Books of time period with addional info before update](joined-queries/screenshots/Join3 Before Update -- Michaela.jpg)
+![Shelves with the highest number of books in all archives](joined-queries/screenshots/Join3MichaelaBefore.jpg)
 **Caption**: Shows how many books are assigned to Michaela before the update
 
-![Books of time period with addional info after update](joined-queries/screenshots/Join3 After Update -- Michaela.jpg)
+![Shelves with the highest number of books in all archives](joined-queries/screenshots/Join3MichaelaAfter.jpg)
 **Caption**: Shows how many books are assigned to Michaela after the update
 
 All joined queries code and their accompanying screen shots can be found in the “joined-queries” folder in the main repository. All times are logged on the screenshots automatically of each query.
