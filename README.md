@@ -516,6 +516,9 @@ WHERE u. employee_id = el. employee_id
 
 - For query 3, we have before and after screenshots of both Micaela and Traci to show the reassignments in the data. All code and picture references at the end of section 1.
 
+![Shelves with the highest number of books in all archives](joined-queries/screenshots/Join3Update.jpg)
+**Caption**: Shows update operation and its execution time
+
 ![Shelves with the highest number of books in all archives](joined-queries/screenshots/Join3MichaelaBefore.jpg)
 **Caption**: Shows how many books are assigned to Michaela before the update
 
