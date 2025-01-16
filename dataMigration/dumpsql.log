@@ -1,0 +1,190 @@
+pg_dump: last built-in OID is 16383
+pg_dump: reading extensions
+pg_dump: identifying extension members
+pg_dump: reading schemas
+pg_dump: reading user-defined tables
+pg_dump: reading user-defined functions
+pg_dump: reading user-defined types
+pg_dump: reading procedural languages
+pg_dump: reading user-defined aggregate functions
+pg_dump: reading user-defined operators
+pg_dump: reading user-defined access methods
+pg_dump: reading user-defined operator classes
+pg_dump: reading user-defined operator families
+pg_dump: reading user-defined text search parsers
+pg_dump: reading user-defined text search templates
+pg_dump: reading user-defined text search dictionaries
+pg_dump: reading user-defined text search configurations
+pg_dump: reading user-defined foreign-data wrappers
+pg_dump: reading user-defined foreign servers
+pg_dump: reading default privileges
+pg_dump: reading user-defined collations
+pg_dump: reading user-defined conversions
+pg_dump: reading type casts
+pg_dump: reading transforms
+pg_dump: reading table inheritance information
+pg_dump: reading event triggers
+pg_dump: finding extension tables
+pg_dump: finding inheritance relationships
+pg_dump: reading column info for interesting tables
+pg_dump: finding table default expressions
+pg_dump: finding table check constraints
+pg_dump: flagging inherited columns in subtables
+pg_dump: reading partitioning data
+pg_dump: reading indexes
+pg_dump: flagging indexes in partitioned tables
+pg_dump: reading extended statistics
+pg_dump: reading constraints
+pg_dump: reading triggers
+pg_dump: reading rewrite rules
+pg_dump: reading policies
+pg_dump: reading row-level security policies
+pg_dump: reading publications
+pg_dump: reading publication membership of tables
+pg_dump: reading publication membership of schemas
+pg_dump: reading subscriptions
+pg_dump: reading subscription membership of tables
+pg_dump: reading large objects
+pg_dump: reading dependency data
+pg_dump: saving encoding = UTF8
+pg_dump: saving "standard_conforming_strings = on"
+pg_dump: saving "search_path = "
+pg_dump: creating FUNCTION "public.calculate_author_age()"
+pg_dump: creating FUNCTION "public.getauthornamebybookid(integer)"
+pg_dump: creating FUNCTION "public.getbooksreleasedwithin10yearsofbirth(integer)"
+pg_dump: creating FUNCTION "public.getbooksreleasedwithin10yearsofbirth(integer, integer)"
+pg_dump: creating FUNCTION "public.getcountrybypublisherid(integer)"
+pg_dump: creating FUNCTION "public.log_book_deletion()"
+pg_dump: creating FUNCTION "public.reduce_location_quantity()"
+pg_dump: creating FUNCTION "public.update_condition_for_ebook()"
+pg_dump: creating FUNCTION "public.update_location_quantity()"
+pg_dump: creating PROCEDURE "public.updatebooksconditionforpublisher(character varying, character varying)"
+pg_dump: creating TABLE "public.archival_assignment"
+pg_dump: creating TABLE "public.archive"
+pg_dump: creating TABLE "public.author"
+pg_dump: creating TABLE "public.book"
+pg_dump: creating TABLE "public.book_log"
+pg_dump: creating SEQUENCE "public.book_log_log_id_seq"
+pg_dump: creating SEQUENCE OWNED BY "public.book_log_log_id_seq"
+pg_dump: creating TABLE "public.country"
+pg_dump: creating TABLE "public.disposal"
+pg_dump: creating TABLE "public.employee"
+pg_dump: creating TABLE "public.genre"
+pg_dump: creating TABLE "public.is_in"
+pg_dump: creating TABLE "public.language"
+pg_dump: creating TABLE "public.location"
+pg_dump: creating TABLE "public.published_by"
+pg_dump: creating TABLE "public.publisher"
+pg_dump: creating VIEW "public.publisher_detail_view"
+pg_dump: creating TABLE "public.rarity"
+pg_dump: creating TABLE "public.shelf"
+pg_dump: creating TABLE "public.type_of"
+pg_dump: creating TABLE "public.upkeep"
+pg_dump: creating TABLE "public.written_by"
+pg_dump: creating TABLE "public.written_in"
+pg_dump: creating DEFAULT "public.book_log log_id"
+pg_dump: processing data for table "public.archival_assignment"
+pg_dump: dumping contents of table "public.archival_assignment"
+pg_dump: processing data for table "public.archive"
+pg_dump: dumping contents of table "public.archive"
+pg_dump: processing data for table "public.author"
+pg_dump: dumping contents of table "public.author"
+pg_dump: processing data for table "public.book"
+pg_dump: dumping contents of table "public.book"
+pg_dump: processing data for table "public.book_log"
+pg_dump: dumping contents of table "public.book_log"
+pg_dump: processing data for table "public.country"
+pg_dump: dumping contents of table "public.country"
+pg_dump: processing data for table "public.disposal"
+pg_dump: dumping contents of table "public.disposal"
+pg_dump: processing data for table "public.employee"
+pg_dump: dumping contents of table "public.employee"
+pg_dump: processing data for table "public.genre"
+pg_dump: dumping contents of table "public.genre"
+pg_dump: processing data for table "public.is_in"
+pg_dump: dumping contents of table "public.is_in"
+pg_dump: processing data for table "public.language"
+pg_dump: dumping contents of table "public.language"
+pg_dump: processing data for table "public.location"
+pg_dump: dumping contents of table "public.location"
+pg_dump: processing data for table "public.published_by"
+pg_dump: dumping contents of table "public.published_by"
+pg_dump: processing data for table "public.publisher"
+pg_dump: dumping contents of table "public.publisher"
+pg_dump: processing data for table "public.rarity"
+pg_dump: dumping contents of table "public.rarity"
+pg_dump: processing data for table "public.shelf"
+pg_dump: dumping contents of table "public.shelf"
+pg_dump: processing data for table "public.type_of"
+pg_dump: dumping contents of table "public.type_of"
+pg_dump: processing data for table "public.upkeep"
+pg_dump: dumping contents of table "public.upkeep"
+pg_dump: processing data for table "public.written_by"
+pg_dump: dumping contents of table "public.written_by"
+pg_dump: processing data for table "public.written_in"
+pg_dump: dumping contents of table "public.written_in"
+pg_dump: executing SEQUENCE SET book_log_log_id_seq
+pg_dump: creating CONSTRAINT "public.archival_assignment archival_assignment_pkey"
+pg_dump: creating CONSTRAINT "public.archive archive_pkey"
+pg_dump: creating CONSTRAINT "public.author author_pkey"
+pg_dump: creating CONSTRAINT "public.book book_isbn_key"
+pg_dump: creating CONSTRAINT "public.book_log book_log_pkey"
+pg_dump: creating CONSTRAINT "public.book book_pkey"
+pg_dump: creating CONSTRAINT "public.country country_pkey"
+pg_dump: creating CONSTRAINT "public.disposal disposal_pkey"
+pg_dump: creating CONSTRAINT "public.employee employee_pkey"
+pg_dump: creating CONSTRAINT "public.genre genre_pkey"
+pg_dump: creating CONSTRAINT "public.is_in is_in_pkey"
+pg_dump: creating CONSTRAINT "public.language language_pkey"
+pg_dump: creating CONSTRAINT "public.location location_pkey"
+pg_dump: creating CONSTRAINT "public.published_by published_by_pkey"
+pg_dump: creating CONSTRAINT "public.publisher publisher_phone_number_key"
+pg_dump: creating CONSTRAINT "public.publisher publisher_pkey"
+pg_dump: creating CONSTRAINT "public.rarity rarity_pkey"
+pg_dump: creating CONSTRAINT "public.shelf shelf_pkey"
+pg_dump: creating CONSTRAINT "public.type_of type_of_pkey"
+pg_dump: creating CONSTRAINT "public.employee unique_employee_name"
+pg_dump: creating CONSTRAINT "public.upkeep upkeep_pkey"
+pg_dump: creating CONSTRAINT "public.written_by written_by_pkey"
+pg_dump: creating CONSTRAINT "public.written_in written_in_pkey"
+pg_dump: creating INDEX "public.idx_author_dob_id"
+pg_dump: creating INDEX "public.idx_book_page_count_id"
+pg_dump: creating INDEX "public.idx_book_release_date"
+pg_dump: creating INDEX "public.idx_is_in_country_id"
+pg_dump: creating INDEX "public.idx_is_in_pub_id"
+pg_dump: creating INDEX "public.idx_locale_quantity"
+pg_dump: creating INDEX "public.idx_locale_quantity_condition"
+pg_dump: creating INDEX "public.idx_locale_specific"
+pg_dump: creating INDEX "public.idx_location_book"
+pg_dump: creating INDEX "public.idx_location_id"
+pg_dump: creating INDEX "public.idx_published_by_book"
+pg_dump: creating INDEX "public.idx_published_by_publisher_id"
+pg_dump: creating INDEX "public.idx_type_of_book"
+pg_dump: creating INDEX "public.idx_type_of_genre_id"
+pg_dump: creating INDEX "public.idx_written_by_author_id"
+pg_dump: creating INDEX "public.idx_written_by_id"
+pg_dump: creating INDEX "public.idx_written_in_book"
+pg_dump: creating INDEX "public.idx_written_in_language_id"
+pg_dump: creating INDEX "public.index_archival_assignment"
+pg_dump: creating TRIGGER "public.book book_delete_trigger"
+pg_dump: creating TRIGGER "public.book insert_condition_on_new_ebook"
+pg_dump: creating TRIGGER "public.book update_condition_on_ebook_format"
+pg_dump: creating FK CONSTRAINT "public.archival_assignment archival_assignment_book_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.archival_assignment archival_assignment_employee_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.archival_assignment archival_assignment_new_archive_room_fkey"
+pg_dump: creating FK CONSTRAINT "public.disposal disposal_book_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.disposal disposal_employee_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.is_in is_in_country_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.is_in is_in_publisher_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.location location_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.published_by published_by_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.published_by published_by_publisher_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.shelf shelf_archive_number_fkey"
+pg_dump: creating FK CONSTRAINT "public.type_of type_of_genre_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.type_of type_of_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.upkeep upkeep_book_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.upkeep upkeep_employee_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.written_by written_by_author_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.written_by written_by_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.written_in written_in_id_fkey"
+pg_dump: creating FK CONSTRAINT "public.written_in written_in_language_id_fkey"
