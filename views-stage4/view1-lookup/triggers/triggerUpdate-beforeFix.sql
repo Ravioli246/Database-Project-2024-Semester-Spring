@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION loop_up_update_trigger()
+CREATE OR REPLACE FUNCTION lookup_view_update_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
     -- First update the book entry itself
