@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION insert_into_book_view()
+CREATE OR REPLACE FUNCTION lookup_view_insert_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
     -- First insert book and passed values into book entry
