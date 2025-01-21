@@ -21,7 +21,3 @@ BEGIN
     RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
-
-CREATE TRIGGER book_view_insert
-INSTEAD OF INSERT ON book_lookup_view
-FOR EACH ROW EXECUTE FUNCTION insert_into_book_view();
