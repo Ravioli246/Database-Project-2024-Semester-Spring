@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION lookup_delete_trigger()
+CREATE OR REPLACE FUNCTION lookup_view_delete_trigger()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Delete all info from relevant lookup tables
