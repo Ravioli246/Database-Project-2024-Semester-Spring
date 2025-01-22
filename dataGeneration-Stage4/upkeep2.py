@@ -35,9 +35,7 @@ for upkeep_id in upkeep_ids:
     reason_for_upkeep = random.choice(reasons)
     upkeep_date = fake.date_between(start_date='-2y', end_date='today')
 
-    upkeep_data.append([
-        upkeep_id, book['Book_ID'], employee_id, tools_used, reason_for_upkeep, upkeep_date
-    ])
+    upkeep_data.append([upkeep_id, book['Book_ID'], employee_id, tools_used, reason_for_upkeep, upkeep_date])
 
 with open('./datagen2/data/new/upkeeps2.csv', 'w', newline='') as file:
     writer = csv.writer(file)
