@@ -11,6 +11,7 @@ with open('./datagen2/data/new/books2.csv', 'r') as books_file:
             'Book_ID': int(row['Book_ID']),
             'Title': row['Title']
         })
+
 with open('./datagen2/data/new/employees.csv', 'r') as employees_file:
     reader = csv.DictReader(employees_file)
     for row in reader:
@@ -18,9 +19,7 @@ with open('./datagen2/data/new/employees.csv', 'r') as employees_file:
             disposal_workers.append(int(row['Employee_ID']))
 
 materials = ['Paper', 'Leather', 'Synthetic', 'Metal']
-methods = [
-    'Incineration', 'Recycling', 'Donation', 'Burial', 'Shredding', 'Repurposing'
-]
+methods = ['Incineration', 'Recycling', 'Donation', 'Burial', 'Shredding', 'Repurposing']
 
 disposal_ids = set()
 while len(disposal_ids) < 20000:
@@ -28,6 +27,7 @@ while len(disposal_ids) < 20000:
 
 disposal_data = []
 used_books = set()
+
 for disposal_id in disposal_ids:
     book = random.choice(books)
     while book['Book_ID'] in used_books:
@@ -38,9 +38,7 @@ for disposal_id in disposal_ids:
     material = random.choice(materials)
     disposal_date = fake.date_between(start_date='-2y', end_date='today')
 
-    disposal_data.append([
-        disposal_id, book['Book_ID'], employee_id, method, material, disposal_date
-    ])
+    disposal_data.append([disposal_id, book['Book_ID'], employee_id, method, material, disposal_date])
 
 with open('./datagen2/data/new/disposals2.csv', 'w', newline='') as file:
     writer = csv.writer(file)
