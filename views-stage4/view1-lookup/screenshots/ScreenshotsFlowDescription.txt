@@ -1,0 +1,25 @@
+Flow of of insert/update/delete:
+
+"1-SelectQuerys" are just screenshots of interesting select queries running and returning code
+
+***
+***
+***
+
+then...
+
+in "flow of update" we can see where we got errors for 'update' and then 'delete', so:
+
+1-InsertQueryError is where we're trying to insert a new book, so after this and before 2-SelectInsertedBook,
+    post the trigger that fixes this error. use insert trigger
+
+2-SelectInsertedBook shows update working
+
+3-Update1Query updates the book to a new title and details ("updated")
+
+4-Updated shows the successful update
+
+5-deleteError:
+  1-error: shows error trying to delete (dataType)
+  2-fix  : fixes error with int -> bigint
+  3-proof: screenshot of working delete statement after fix
