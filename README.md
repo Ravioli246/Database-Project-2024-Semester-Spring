@@ -1094,7 +1094,7 @@ LEFT JOIN publisher p ON pb.publisher_id = p.publisher_id;
 
 #### **Queries for View 1**:
 
-1. **SELECT Query**: Easily and efficiently selects all the lookup tables for 'Romance' books released from 2026 and on.
+1. **SELECT Query**: Easily and efficiently selects all the lookup tables for 'Romance' books released from 2016 and on.
    ```sql
    SELECT DISTINCT
     author_name,
