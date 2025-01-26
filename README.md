@@ -996,3 +996,119 @@ SELECT \* FROM get_upkeep_details_by_employee('Jerry Lyons', '2024-05-01', '2024
 **Caption**: We see Jerry, Employee B, has many assignments because he took all the assignemtns from Stacey
 
 All the code and screenshots for functions can be found in the “Functions” folder of the main repository.
+
+# README: Stage 4
+
+## Overview
+
+Stage 4 of the database project focuses on enhancing the database functionality by integrating the data of another table and schema effectively to meet the requirements of different user sub-groups, creating views, and adding queries. The tasks in this stage are designed to optimize database operations and improve usability.
+
+---
+
+## Entity Relationship Diagram (ERD)
+
+In this section, we provide visual representations of the Entity Relationship Diagrams (ERDs) for the project. There are three ERDs presented: our original ERD, the other team's ERD, and the merged ERD.
+
+### ERD Explanations
+
+1. **Our Original ERD**: This represents the database schema initially created, focusing on key entities like `Book`, `Employee`, `Archive`, and functions surrounding those entities like `Upkeep`, `Disposal`, and `Archival Assignments`.
+
+   **OUR ERD PIC**
+
+2. **Other Team’s ERD**: This shows the structure provided by the other team, which we aim to integrate with our own schema. They had a lot more entities and more connective entities.
+
+3. **Merged ERD**: The final ERD, which combines the original and other team's ERD, creating a unified database schema for the system. We had to take some attributes of ours and make them into their own tables while adding other attributes to `Book`, which is the main entity for both our schemas. A more technical explanation will be given down below.
+
+All the ERDs can be found in the media file of the main repository.
+
+---
+
+## Data Structure Diagram (DSD)
+
+The combined DSD is based on the integrated ERD. It is very similar to our original DSD in terms of the structure of our original entities, with the exception of `Archival Assignment`, which now points to a `Location` entity. The ERD has many added entities from the other group that all depend on `Book` and a few entities that `Book` itself depends on, which is new to our DSD (because in our original DSD, `Book` did not rely on anything).
+
+**Insert DSD image here.**
+
+---
+
+## Changes for Integration
+
+During this stage, efforts were made to integrate data from multiple sources, ensuring smooth operation across tables and views. The integration process involved handling foreign key constraints, resolving naming conflicts, having similar schemas for identical entities, and generating data to fit both databases.
+
+### Key Steps Taken:
+
+1. **Normalizing the Book schema**: We decided to make our `Book` entity match theirs. So we had to get rid of some of our attributes (e.g., `author`, `genre`, etc.) and made those into separate entities like the other group had.
+2. **Truncating the data**: We then had to wipe the data from our own tables but leave the actual tables intact, so we used `TRUNCATE`.
+3. **Repopulating our data**: We repopulated our tables that don’t interact with their database so much (e.g., `upkeep`, `disposal`, etc.).
+4. **Rarity**: `Rarity` is the only new entity not seen before in either group's table. So we had to create the table for it and populate data within it.
+5. **Using their DB as a base**: We then decided that since they had more entities than we did, we would use their DB as a base, and we reinitialized our tables into a database that had their schemas already.
+6. **Transfer and Dump**: Finally, we transferred the data from our table to the new one and did a dump from their original table into our new combined one. What we ended up with was a DB that has our data through transfers and their data from a dump.
+
+---
+
+## Tasks and Implementation
+
+### View 1: Lookup View
+
+#### **Objective**:
+Due to the many minor tables that we have, we are going to make a view that gives us all the information we want on one table instead of having to look through multiple tables.
+
+#### **Create View SQL**:
+-- Place your CREATE VIEW SQL query here.
+
+#### **Queries for View 1**:
+
+1. **SELECT Query**: Easily and efficiently selects all the lookup tables for 'Romance' books released from 2026 and on.
+   -- Place your SELECT query here.
+
+2. **INSERT Query**: Sample easy insert statement that inserts a book into the database with the given info.
+   -- Place your INSERT query here.
+
+3. **UPDATE Query**: Selects rare titles with more than 500 pages, and sorts by how many languages they are in.
+   -- Place your UPDATE query here.
+
+4. **DELETE Query**: Deletes from the lookup view the previously inserted book, showcasing the efficiency of the lookup view.
+   -- Place your DELETE query here.
+
+5. **SELECT Query 2**: Selects from the lookup view all the authors who start with 'A', counts their number of books, and returns their average page count.
+   -- Place your SELECT query here.
+
+6. **UPDATE Query 2**: Labels all books from the 20th century as 'Legendary' and adds a ' - Special Anniversary Edition' suffix to the title.
+   -- Place your UPDATE query here.
+
+Extra queries, more data, and screenshots can be found in the main repository -> “views-stage4” -> “view1-lookup” folder.
+
+---
+
+### View 2: Restorationist Upkeep
+
+#### **Objective**:
+Create a view of all the upkeep employees and the countries from which the books they fix come from. It then lists the number of books each employee fixed from each country, thus giving us an idea of the quality of books from certain countries.
+
+#### **Create View SQL**:
+-- Place your CREATE VIEW SQL query here.
+
+#### **Queries for View 2**:
+
+1. **SELECT Query**: Select all the countries that published at least 2600 books that need restoration.
+   -- Place your SELECT query here.
+
+2. **INSERT Query**: Insert into the underlying table of the view another entry. It will automatically update and appear in the view.
+   -- Place your INSERT query here.
+
+3. **UPDATE Query**: Attempt to update the view directly. However, views are virtual tables and you can’t do that with them, so it will fail.
+   -- Place your UPDATE query here.
+
+4. **DELETE Query**: We delete the country 'North Korea', which causes all entries in upkeep to disappear (thanks to delete cascade) and thus removes all North Korea entries from our view.
+   -- Place your DELETE query here.
+
+5. **SELECT Query 2**: We want a list of the employee who restored the most books for a country, for each country.
+   -- Place your SELECT query here.
+
+6. **INSERT Query 2**: Add a new book to update that the publisher is from Samoa, and a new country should appear in our view.
+   -- Place your INSERT query here.
+
+All the data and extra queries for the second view can be found in the `View2` folder of the `views-stage4` folder found in the main repository.
+
+---
+
