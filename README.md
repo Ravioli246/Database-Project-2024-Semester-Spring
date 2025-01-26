@@ -1013,13 +1013,17 @@ In this section, we provide visual representations of the Entity Relationship Di
 
 1. **Our Original ERD**: This represents the database schema initially created, focusing on key entities like `Book`, `Employee`, `Archive`, and functions surrounding those entities like `Upkeep`, `Disposal`, and `Archival Assignments`.
 
-   **OUR ERD PIC**
+   ![Populating PGAdmin with books from our csv](media/erd.png)
 
 2. **Other Team’s ERD**: This shows the structure provided by the other team, which we aim to integrate with our own schema. They had a lot more entities and more connective entities.
 
-3. **Merged ERD**: The final ERD, which combines the original and other team's ERD, creating a unified database schema for the system. We had to take some attributes of ours and make them into their own tables while adding other attributes to `Book`, which is the main entity for both our schemas. A more technical explanation will be given down below.
+   ![Populating PGAdmin with books from our csv](media/other-team-erd.png)
 
-All the ERDs can be found in the media file of the main repository.
+4. **Merged ERD**: The final ERD, which combines the original and other team's ERD, creating a unified database schema for the system. We had to take some attributes of ours and make them into their own tables while adding other attributes to `Book`, which is the main entity for both our schemas. A more technical explanation will be given down below.
+
+   ![Populating PGAdmin with books from our csv](media/Combined-ERD.png)
+
+All the ERDs and their JSONs can be found in the media file of the main repository.
 
 ---
 
@@ -1027,7 +1031,9 @@ All the ERDs can be found in the media file of the main repository.
 
 The combined DSD is based on the integrated ERD. It is very similar to our original DSD in terms of the structure of our original entities, with the exception of `Archival Assignment`, which now points to a `Location` entity. The ERD has many added entities from the other group that all depend on `Book` and a few entities that `Book` itself depends on, which is new to our DSD (because in our original DSD, `Book` did not rely on anything).
 
-**Insert DSD image here.**
+![Populating PGAdmin with books from our csv](media/Combined-DSD.png)
+
+All the screenshots and data for the DSD can be found in the media folder of the main repository.
 
 ---
 
@@ -1043,6 +1049,8 @@ During this stage, efforts were made to integrate data from multiple sources, en
 4. **Rarity**: `Rarity` is the only new entity not seen before in either group's table. So we had to create the table for it and populate data within it.
 5. **Using their DB as a base**: We then decided that since they had more entities than we did, we would use their DB as a base, and we reinitialized our tables into a database that had their schemas already.
 6. **Transfer and Dump**: Finally, we transferred the data from our table to the new one and did a dump from their original table into our new combined one. What we ended up with was a DB that has our data through transfers and their data from a dump.
+
+All the data from our process of making the new table and then integrating the data can be found in the dataMigration folder of the main repository along with numerous screenshots.
 
 ---
 
@@ -1239,8 +1247,12 @@ ORDER BY
    INSERT INTO upkeep (upkeep_id, id, employee_id, tools_used, reason_for_upkeep, date)
    VALUES ( 12312 ,2141, 1003, 'Brush', 'Dust accumulation',CURRENT_DATE);   
     ```
+   For the insert we have 2 screenshots showing the view before this query and after this query with a change in the first row of the table.
+   Before: ![Populating PGAdmin with books from our csv](views-stage4/view2/screenshots/befroeinsert1.png)
 
-3. **UPDATE Query**: Attempt to update the view directly. However, views are virtual tables and you can’t do that with them, so it will fail.
+   After: ![Populating PGAdmin with books from our csv](views-stage4/view2/screenshots/afterinsert1.png)
+
+4. **UPDATE Query**: Attempt to update the view directly. However, views are virtual tables and you can’t do that with them, so it will fail.
 ```sql
 UPDATE restorationist_upkeep_summary
 SET upkept_books_count = 1;
@@ -1272,6 +1284,9 @@ WHERE (country_name, upkept_books_count) IN (
 INSERT INTO public.upkeep (upkeep_id, id, employee_id, tools_used, reason_for_upkeep, date)
 VALUES (123456, 1, 1030, 'Brush', 'Dust accumulation', CURRENT_DATE);
 ```
+
+Example Screenshot of a query:
+![Populating PGAdmin with books from our csv](views-stage4/view2/screenshots/update1.png)
 
 All the data and extra queries for the second view can be found in the `View2` folder of the `views-stage4` folder found in the main repository.
 
