@@ -1112,7 +1112,9 @@ LEFT JOIN publisher p ON pb.publisher_id = p.publisher_id;
     release_date ASC;
     ```
 
-2. **INSERT Query**: Sample easy insert statement that inserts a book into the database with the given info.
+   ![Populating PGAdmin with books from our csv](views-stage4/view1-lookup/screenshots/viewQueriesScreenshots/1-Select1Query.jpg)
+
+2. **INSERT Query**: Sample easy insert statement that inserts a book into the database with the given info. However we see that we get an error because you cant insert directly into a view that has multiple underlying tables.
    ```sql
    INSERT INTO lookup_view (
     book_id,
@@ -1144,7 +1146,125 @@ LEFT JOIN publisher p ON pb.publisher_id = p.publisher_id;
     );
     ```
 
-3. **UPDATE Query**: Selects rare titles with more than 500 pages, and sorts by how many languages they are in.
+    Screenshot of the error: ![Populating PGAdmin with books from our csv](views-stage4/view1-lookup/screenshots/viewQueriesScreenshots/1-InsertQueryError.jpg)
+
+    So we fix this with a trigger.
+    One peice of code is the trigger insert before we fix the view:
+   ```sql
+   CREATE OR REPLACE FUNCTION lookup_view_insert_trigger()
+    RETURNS TRIGGER AS $$
+    BEGIN
+    -- First insert book and passed values into book entry
+    INSERT INTO book (title, release_date, page_count, format, description, isbn)
+    VALUES (NEW.book_title, NEW.release_date, NEW.page_count, NEW.book_format, NEW.description, NEW.isbn);
+
+    -- Then insert individual entries for the lookup tables
+    INSERT INTO written_in (id, language_id)
+    VALUES (currval('book_id_seq'), (SELECT language_id FROM language WHERE name = NEW.language));
+
+    INSERT INTO written_by (id, author_id)
+    VALUES (currval('book_id_seq'), (SELECT author_id FROM author WHERE first_name || ' ' || last_name = NEW.author_name));
+
+    INSERT INTO type_of (id, genre_id)
+    VALUES (currval('book_id_seq'), (SELECT genre_id FROM genre WHERE name = NEW.genre));
+
+    INSERT INTO published_by (id, publisher_id)
+    VALUES (currval('book_id_seq'), (SELECT publisher_id FROM publisher WHERE name = NEW.publisher_name));
+
+    RETURN NULL;
+    END;
+    $$ LANGUAGE plpgsql;
+    ```
+
+   And this next peice of code is the trigger insert after we fix the view:
+   ```sql
+   CREATE OR REPLACE FUNCTION lookup_view_insert_trigger()
+    RETURNS TRIGGER AS $$
+    DECLARE
+    -- Declares new id's for handling duplicates
+    new_author_id INT;
+    new_publisher_id INT;
+    new_genre_id INT;
+    new_language_id INT;
+    BEGIN
+    -- First update the book entry itself
+    INSERT INTO book (id, title, release_date, page_count, format, description, isbn)
+    VALUES (NEW.book_id, NEW.book_title, NEW.release_date, NEW.page_count, NEW.book_format, NEW.description, NEW.isbn);
+
+        -- PROBLEMATIC MISSING CASES/DUPLICATES: author, publisher:
+
+    -- Handles missing author
+    SELECT author_id INTO new_author_id
+    FROM author
+    WHERE first_name || ' ' || last_name = NEW.author_name;
+    IF new_author_id IS NULL THEN
+        INSERT INTO author (author_id, first_name, last_name, date_of_birth, biography)
+        VALUES (
+            -- Generates new author_id, names, DOB, bio
+            author_id,
+            split_part(NEW.author_name, ' ', 1),
+            split_part(NEW.author_name, ' ', 2),
+            '1984-11-07',
+            'Nowhere Town'
+        )
+        RETURNING author_id INTO new_author_id;
+        END IF;
+
+    -- Handles missing publisher
+    SELECT publisher_id INTO new_publisher_id
+    FROM publisher
+    WHERE name = NEW.publisher_name;
+    IF new_publisher_id IS NULL THEN
+        INSERT INTO publisher (publisher_id, name, phone_number, website)
+        VALUES (
+            -- Generates new publisher_id, name, default number, and site
+            publisher_id,
+            NEW.publisher_name,
+            '059-555-8193',
+            'testing-website.com'
+        )
+        RETURNING publisher_id INTO new_publisher_id;
+    END IF;
+
+    -- Rest of lookup tables
+    INSERT INTO genre (genre_id, name, description)
+    VALUES (
+        new_genre_id,
+        NEW.genre,
+        NEW.description
+    )
+    INSERT INTO written_by (language_id, name)
+    VALUES (
+        new_language_id,
+        NEW.language
+    );
+    INSERT INTO written_by (id, author_id)
+    VALUES (
+        NEW.book_id,
+        new_author_id
+    );
+    INSERT INTO written_in (id, language_id)
+    VALUES (
+        NEW.book_id,
+        new_language_id
+    );
+    INSERT INTO type_of (id, genre_id)
+    VALUES (
+        NEW.book_id,
+        new_genre_id
+    );
+    INSERT INTO published_by (id, publisher_id)
+    VALUES (
+        NEW.book_id,
+        new_publisher_id
+    );
+
+    RETURN NULL;
+    END;
+    $$ LANGUAGE plpgsql;
+   ```
+
+4. **UPDATE Query**: Selects rare titles with more than 500 pages, and sorts by how many languages they are in.
    ```sql
    UPDATE lookup_view
     SET 
@@ -1162,13 +1282,13 @@ LEFT JOIN publisher p ON pb.publisher_id = p.publisher_id;
     WHERE book_id = 7381927364;
     ```
 
-4. **DELETE Query**: Deletes from the lookup view the previously inserted book, showcasing the efficiency of the lookup view.
+5. **DELETE Query**: Deletes from the lookup view the previously inserted book, showcasing the efficiency of the lookup view.
    ```sql
    DELETE FROM lookup_view
    WHERE book_id = 7381927364;
     ```
 
-5. **SELECT Query 2**: Selects from the lookup view all the authors who start with 'A', counts their number of books, and returns their average page count.
+6. **SELECT Query 2**: Selects from the lookup view all the authors who start with 'A', counts their number of books, and returns their average page count.
    ```sql
    SELECT 
     publisher_name,
@@ -1180,7 +1300,7 @@ LEFT JOIN publisher p ON pb.publisher_id = p.publisher_id;
     ORDER BY avg_page_count DESC;
     ```
 
-6. **UPDATE Query 2**: Labels all books from the 20th century as 'Legendary' and adds a ' - Special Anniversary Edition' suffix to the title.
+7. **UPDATE Query 2**: Labels all books from the 20th century as 'Legendary' and adds a ' - Special Anniversary Edition' suffix to the title.
    ```sql
    UPDATE lookup_view
     SET 
