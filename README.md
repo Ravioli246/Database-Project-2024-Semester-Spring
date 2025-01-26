@@ -1194,28 +1194,84 @@ Extra queries, more data, and screenshots can be found in the main repository ->
 #### **Objective**:
 Create a view of all the upkeep employees and the countries from which the books they fix come from. It then lists the number of books each employee fixed from each country, thus giving us an idea of the quality of books from certain countries.
 
-#### **Create View SQL**:
--- Place your CREATE VIEW SQL query here.
+#### **Create View**:
+```sql
+CREATE VIEW restorationist_upkeep_summary AS
+SELECT 
+    e.employee_id,
+    c.name AS country_name,
+    COUNT(u.id) AS upkept_books_count
+FROM 
+employee e
+JOIN 
+upkeep u ON e.employee_id = u.employee_id
+JOIN 
+    published_by pb ON u.id = pb.id
+JOIN 
+    is_in ii ON pb.publisher_id = ii.publisher_id
+JOIN 
+    country c ON ii.country_id = c.country_id
+WHERE 
+    e.role = 'Restorationist'
+GROUP BY 
+    e.employee_id, c.name
+ORDER BY 
+    e.employee_id, upkept_books_count DESC;
+```
 
 #### **Queries for View 2**:
 
 1. **SELECT Query**: Select all the countries that published at least 2600 books that need restoration.
-   -- Place your SELECT query here.
+   ```sql
+   SELECT 
+   country_name, 
+    SUM(upkept_books_count) AS total_upkept_books
+    FROM 
+    restorationist_upkeep_summary
+    GROUP BY 
+    country_name
+    HAVING 
+    SUM(upkept_books_count) > 2600;
+    ```
 
 2. **INSERT Query**: Insert into the underlying table of the view another entry. It will automatically update and appear in the view.
-   -- Place your INSERT query here.
+   ```sql
+   INSERT INTO upkeep (upkeep_id, id, employee_id, tools_used, reason_for_upkeep, date)
+   VALUES ( 12312 ,2141, 1003, 'Brush', 'Dust accumulation',CURRENT_DATE);   
+    ```
 
 3. **UPDATE Query**: Attempt to update the view directly. However, views are virtual tables and you can’t do that with them, so it will fail.
-   -- Place your UPDATE query here.
+```sql
+UPDATE restorationist_upkeep_summary
+SET upkept_books_count = 1;
+```
 
 4. **DELETE Query**: We delete the country 'North Korea', which causes all entries in upkeep to disappear (thanks to delete cascade) and thus removes all North Korea entries from our view.
-   -- Place your DELETE query here.
+```sql
+DELETE FROM country
+WHERE name = 'North Korea';
+```
 
 5. **SELECT Query 2**: We want a list of the employee who restored the most books for a country, for each country.
-   -- Place your SELECT query here.
+```sql
+SELECT 
+    employee_id,
+    country_name,
+    upkept_books_count AS maxamountfromcountry
+FROM restorationist_upkeep_summary
+WHERE (country_name, upkept_books_count) IN (
+    SELECT 
+        country_name, 
+        MAX(upkept_books_count) 
+    FROM restorationist_upkeep_summary
+    GROUP BY country_name;
+```
 
 6. **INSERT Query 2**: Add a new book to update that the publisher is from Samoa, and a new country should appear in our view.
-   -- Place your INSERT query here.
+```sql
+INSERT INTO public.upkeep (upkeep_id, id, employee_id, tools_used, reason_for_upkeep, date)
+VALUES (123456, 1, 1030, 'Brush', 'Dust accumulation', CURRENT_DATE);
+```
 
 All the data and extra queries for the second view can be found in the `View2` folder of the `views-stage4` folder found in the main repository.
 
