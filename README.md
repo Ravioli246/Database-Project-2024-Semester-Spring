@@ -1053,28 +1053,137 @@ During this stage, efforts were made to integrate data from multiple sources, en
 #### **Objective**:
 Due to the many minor tables that we have, we are going to make a view that gives us all the information we want on one table instead of having to look through multiple tables.
 
-#### **Create View SQL**:
--- Place your CREATE VIEW SQL query here.
+#### **Create View**:
+```sql
+CREATE OR REPLACE VIEW lookup_view AS
+SELECT 
+    b.id AS book_id,
+    b.title AS book_title,
+    b.release_date AS release_date,
+    b.page_count AS page_count,
+    b.format AS book_format,
+    b.description AS description,
+    b.isbn AS isbn,
+    l.name AS language,
+    r.rarity_level AS rarity,
+    a.first_name || ' ' || a.last_name AS author_name,
+    g.name AS genre,
+    p.name AS publisher_name,
+    p.phone_number AS publisher_contact,
+    p.website AS publisher_website
+FROM 
+    book b
+LEFT JOIN written_in wi ON b.id = wi.id
+LEFT JOIN language l ON wi.language_id = l.language_id
+LEFT JOIN rarity r ON b.id = r.id
+LEFT JOIN written_by wb ON b.id = wb.id
+LEFT JOIN author a ON wb.author_id = a.author_id
+LEFT JOIN type_of to_genre ON b.id = to_genre.id
+LEFT JOIN genre g ON to_genre.genre_id = g.genre_id
+LEFT JOIN published_by pb ON b.id = pb.id
+LEFT JOIN publisher p ON pb.publisher_id = p.publisher_id;
+```
 
 #### **Queries for View 1**:
 
 1. **SELECT Query**: Easily and efficiently selects all the lookup tables for 'Romance' books released from 2026 and on.
-   -- Place your SELECT query here.
+   ```sql
+   SELECT DISTINCT
+    author_name,
+    book_title,
+    release_date,
+    genre,
+    language,
+    publisher_name
+    FROM 
+    lookup_view
+    WHERE 
+    release_date > '2016-01-01'
+    AND genre = 'Romance'
+    ORDER BY 
+    release_date ASC;
+    ```
 
 2. **INSERT Query**: Sample easy insert statement that inserts a book into the database with the given info.
-   -- Place your INSERT query here.
+   ```sql
+   INSERT INTO lookup_view (
+    book_id,
+    book_title,
+    release_date,
+    page_count,
+    book_format,
+    description,
+    isbn,
+    language,
+    rarity,
+    author_name,
+    genre,
+    publisher_name
+    )
+    VALUES (
+    7381927364,
+    'The Heart of Databases',
+    '2025-01-01',
+    400,
+    'Hardcover',
+    'A comprehensive guide to databases.',
+    43210123,
+    'English',
+    'Rare',
+    'Zachary Albacrosster',
+    'Technology',
+    'Tech Publishers'
+    );
+    ```
 
 3. **UPDATE Query**: Selects rare titles with more than 500 pages, and sorts by how many languages they are in.
-   -- Place your UPDATE query here.
+   ```sql
+   UPDATE lookup_view
+    SET 
+    book_title = 'The Updated Title of Databases',
+    release_date = '2024-01-01',
+    page_count = 450,
+    book_format = 'Paperback',
+    description = 'An updated guide to databases.',
+    isbn = 98765432,
+    language = 'Spanish',
+    rarity = 'Common',
+    author_name = 'Frederick Gonepigs',
+    genre = 'Science',
+    publisher_name = 'Newly Refreshed Tech Publishers'
+    WHERE book_id = 7381927364;
+    ```
 
 4. **DELETE Query**: Deletes from the lookup view the previously inserted book, showcasing the efficiency of the lookup view.
-   -- Place your DELETE query here.
+   ```sql
+   DELETE FROM lookup_view
+   WHERE book_id = 7381927364;
+    ```
 
 5. **SELECT Query 2**: Selects from the lookup view all the authors who start with 'A', counts their number of books, and returns their average page count.
-   -- Place your SELECT query here.
+   ```sql
+   SELECT 
+    publisher_name,
+    COUNT(book_id) AS total_books,
+    AVG(page_count) AS avg_page_count
+    FROM lookup_view
+    WHERE author_name LIKE 'A%'
+    GROUP BY publisher_name
+    ORDER BY avg_page_count DESC;
+    ```
 
 6. **UPDATE Query 2**: Labels all books from the 20th century as 'Legendary' and adds a ' - Special Anniversary Edition' suffix to the title.
-   -- Place your UPDATE query here.
+   ```sql
+   UPDATE lookup_view
+    SET 
+    book_title = book_title || ' - Special Anniversary Edition',
+    book_format = 'Collector Edition',
+    rarity = COALESCE(rarity, 'Legendary')
+    WHERE 
+    release_date < '2000-01-01'
+    RETURNING 
+    book_id, book_title, book_format, rarity;
+    ```
 
 Extra queries, more data, and screenshots can be found in the main repository -> “views-stage4” -> “view1-lookup” folder.
 
