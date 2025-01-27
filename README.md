@@ -1015,7 +1015,7 @@ In this section, we provide visual representations of the Entity Relationship Di
 
    ![Populating PGAdmin with books from our csv](media/erd.png)
 
-2. **Other Team’s ERD**: This shows the structure provided by the other team, which we aim to integrate with our own schema. They had a lot more entities and more connective entities.
+2. **Other Team’s ERD**: This shows the structure provided by the other team, which we aim to integrate with our own schema. They had the same amount of entities but more connective entities in their database.
 
    ![Populating PGAdmin with books from our csv](media/other-team-erd.png)
 
