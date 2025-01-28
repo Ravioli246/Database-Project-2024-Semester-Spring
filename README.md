@@ -1087,9 +1087,10 @@ IMPORTANT -- the main difference in our databases was table strucutre, so becaus
 
 ### Fifth Step -- Migrate new data:
 
-Now, we simply add in our newly generated data so the entire database works and we're done.
+Now, we simply create new identical tables from our database in our newly restored database and add in our newly generated data so the entire database works and we're done. We do this for 6 of our 7 tables (they already have book and we have changed data accordingly so it fits and works with their book entity).
 
-   ![](dataMigration/screenshots/7-archivalAssignment.jpg)
+   ![](dataMigration/screenshots/6-newTableArchivalAssignment.jpg)
+   ![](dataMigration/screenshots/7-movingDataBetweenDatabases-archivalAssignment.jpg)
 
 ### Sixth Step -- pg_dump:
 
