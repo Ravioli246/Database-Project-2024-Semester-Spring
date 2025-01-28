@@ -1052,6 +1052,34 @@ During this stage, efforts were made to integrate data from multiple sources, en
 
 All the data from our process of making the new table and then integrating the data can be found in the dataMigration folder of the main repository along with numerous screenshots (dataGeneration-Stage4 folder).
 
+#First Step -- pg_restore:
+
+Restore from GitLab dump files of other group -- "Book":
+
+   ![](dataMigration/screenshots/1-pgdump2.jpg)
+
+Second Step -- truncate:
+
+This is where we 
+
+   ![](dataMigration/screenshots/3-truncate.jpg)
+
+First Step -- pg_restore:
+
+   ![](dataMigration/screenshots/1-pgdump2.jpg)
+
+First Step -- pg_restore:
+
+   ![](dataMigration/screenshots/1-pgdump2.jpg)
+
+First Step -- pg_restore:
+
+   ![](dataMigration/screenshots/1-pgdump2.jpg)
+
+First Step -- pg_restore:
+
+   ![](dataMigration/screenshots/1-pgdump2.jpg)
+
 First Step -- pg_restore:
 
    ![](dataMigration/screenshots/1-pgdump2.jpg)
