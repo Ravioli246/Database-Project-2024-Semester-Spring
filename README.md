@@ -1052,27 +1052,40 @@ During this stage, efforts were made to integrate data from multiple sources, en
 
 All the data from our process of making the new table and then integrating the data can be found in the dataMigration folder of the main repository along with numerous screenshots (dataGeneration-Stage4 folder).
 
-#First Step -- pg_restore:
+# First Step -- pg_restore
 
-Restore from GitLab dump files of other group -- "Book":
+Restore from GitLab dump files of other group -- "Book".
 
    ![](dataMigration/screenshots/1-pgdump2.jpg)
 
-Second Step -- truncate:
+# Second Step -- truncate
 
-This is where we 
+Clear our data, ready to generate and insert new data
 
    ![](dataMigration/screenshots/3-truncate.jpg)
 
-First Step -- pg_restore:
+# Third Step -- generate new data:
 
-   ![](dataMigration/screenshots/1-pgdump2.jpg)
+Check dataGeneration-Stage4 folder for all the scripts we used to populate new data, given that we are working off of the pg_restore data, so we have to populate things like rarity, ISBN, country, and so on
 
-First Step -- pg_restore:
+- `book2.py`: Generates book data
+- `assignment2.py`: Generates archival assignment data
+- `disposal2.py`: Generates book upkeep data
+- `upkeep2.py`: Generates book upkeep data
 
-   ![](dataMigration/screenshots/1-pgdump2.jpg)
+shelf, archive, employee were kept the same
 
-First Step -- pg_restore:
+- `rarity.py` -- Creates random lookup table for rarity level
+
+# Fourth Step -- add in new data
+
+Here we simply add in all the added data to new tables in our pg_restore'd database.
+IMPORTANT -- the main difference in our databases was table strucutre, so because rarity is stored as an entity, and not an attribute, we needed an entirely new Rarity entity table.
+
+   ![](dataMigration/screenshots/4-addBook2.jpg)
+   ![](dataMigration/screenshots/5-rarity2.jpg)
+
+# Fifth Step -- pg_restore:
 
    ![](dataMigration/screenshots/1-pgdump2.jpg)
 
