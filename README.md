@@ -1050,7 +1050,11 @@ During this stage, efforts were made to integrate data from multiple sources, en
 5. **Using their DB as a base**: We then decided that since they had more entities than we did, we would use their DB as a base, and we reinitialized our tables into a database that had their schemas already.
 6. **Transfer and Dump**: Finally, we transferred the data from our table to the new one and did a dump from their original table into our new combined one. What we ended up with was a DB that has our data through transfers and their data from a dump.
 
-All the data from our process of making the new table and then integrating the data can be found in the dataMigration folder of the main repository along with numerous screenshots.
+All the data from our process of making the new table and then integrating the data can be found in the dataMigration folder of the main repository along with numerous screenshots (dataGeneration-Stage4 folder).
+
+First Step -- pg_restore:
+
+   ![](dataMigration/screenshots/1-pgdump2.jpg)
 
 ---
 
