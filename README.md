@@ -1264,31 +1264,7 @@ LEFT JOIN publisher p ON pb.publisher_id = p.publisher_id;
     $$ LANGUAGE plpgsql;
    ```
 
-4. **UPDATE Query**: Selects rare titles with more than 500 pages, and sorts by how many languages they are in.
-   ```sql
-   UPDATE lookup_view
-    SET 
-    book_title = 'The Updated Title of Databases',
-    release_date = '2024-01-01',
-    page_count = 450,
-    book_format = 'Paperback',
-    description = 'An updated guide to databases.',
-    isbn = 98765432,
-    language = 'Spanish',
-    rarity = 'Common',
-    author_name = 'Frederick Gonepigs',
-    genre = 'Science',
-    publisher_name = 'Newly Refreshed Tech Publishers'
-    WHERE book_id = 7381927364;
-    ```
-
-5. **DELETE Query**: Deletes from the lookup view the previously inserted book, showcasing the efficiency of the lookup view.
-   ```sql
-   DELETE FROM lookup_view
-   WHERE book_id = 7381927364;
-    ```
-
-6. **SELECT Query 2**: Selects from the lookup view all the authors who start with 'A', counts their number of books, and returns their average page count.
+4. **SELECT Query 2**: Selects from the lookup view all the authors who start with 'A', counts their number of books, and returns their average page count.
    ```sql
    SELECT 
     publisher_name,
@@ -1300,7 +1276,7 @@ LEFT JOIN publisher p ON pb.publisher_id = p.publisher_id;
     ORDER BY avg_page_count DESC;
     ```
 
-7. **UPDATE Query 2**: Labels all books from the 20th century as 'Legendary' and adds a ' - Special Anniversary Edition' suffix to the title.
+5. **UPDATE Query 2**: Labels all books from the 20th century as 'Legendary' and adds a ' - Special Anniversary Edition' suffix to the title.
    ```sql
    UPDATE lookup_view
     SET 
