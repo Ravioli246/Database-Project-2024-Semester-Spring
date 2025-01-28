@@ -1052,19 +1052,19 @@ During this stage, efforts were made to integrate data from multiple sources, en
 
 All the data from our process of making the new table and then integrating the data can be found in the dataMigration folder of the main repository along with numerous screenshots (dataGeneration-Stage4 folder).
 
-# First Step -- pg_restore
+### First Step -- pg_restore
 
 Restore from GitLab dump files of other group -- "Book".
 
    ![](dataMigration/screenshots/1-pgdump2.jpg)
 
-# Second Step -- truncate
+### Second Step -- truncate
 
-Clear our data, ready to generate and insert new data
+Clear our data, ready to generate and insert new data.
 
    ![](dataMigration/screenshots/3-truncate.jpg)
 
-# Third Step -- generate new data:
+### Third Step -- generate new data:
 
 Check dataGeneration-Stage4 folder for all the scripts we used to populate new data, given that we are working off of the pg_restore data, so we have to populate things like rarity, ISBN, country, and so on
 
@@ -1077,7 +1077,7 @@ shelf, archive, employee were kept the same
 
 - `rarity.py` -- Creates random lookup table for rarity level
 
-# Fourth Step -- add in new data
+### Fourth Step -- add in new data
 
 Here we simply add in all the added data to new tables in our pg_restore'd database.
 IMPORTANT -- the main difference in our databases was table strucutre, so because rarity is stored as an entity, and not an attribute, we needed an entirely new Rarity entity table.
@@ -1085,17 +1085,17 @@ IMPORTANT -- the main difference in our databases was table strucutre, so becaus
    ![](dataMigration/screenshots/4-addBook2.jpg)
    ![](dataMigration/screenshots/5-rarity2.jpg)
 
-# Fifth Step -- pg_restore:
+### Fifth Step -- Migrate new data:
 
-   ![](dataMigration/screenshots/1-pgdump2.jpg)
+Now, we simply add in our newly generated data so the entire database works and we're done.
 
-First Step -- pg_restore:
+   ![](dataMigration/screenshots/7-archivalAssignment.jpg)
 
-   ![](dataMigration/screenshots/1-pgdump2.jpg)
+### Sixth Step -- pg_dump:
 
-First Step -- pg_restore:
+Now that we're done, we will dump the data to backup our data, be able to send back to the other group for their use, and for general use.
 
-   ![](dataMigration/screenshots/1-pgdump2.jpg)
+   ![](dataMigration/screenshots/8-dump2.jpg)
 
 ---
 
